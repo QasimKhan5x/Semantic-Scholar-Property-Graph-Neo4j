@@ -39,7 +39,7 @@ The keyword creation part of the ETL process is time-consuming. If you prefer to
 After processing the data, set up a Neo4j DBMS and obtain the path to its DBMS directory. On macOS, the path looks like this:
 
 ```
-file:/Users/user/Library/Application%20Support/Neo4j%20Desktop/Application/relate-data/dbmss/<dbms-id>/import/csv_path.txt
+/Users/user/Library/Application%20Support/Neo4j%20Desktop/Application/relate-data/dbmss/<dbms-id>/import/csv_path.txt
 ```
 
 Replace `<dbms-id>` with the appropriate folder name for your DBMS.
