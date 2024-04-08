@@ -3,21 +3,23 @@ from connection import Neo4jConnection
 import configparser
 import os
 
+
 # Function to load configuration
-def load_config(config_file='config.ini'):
+def load_config(config_file="config.ini"):
     # Try to read from environment variables first
-    uri = os.getenv('NEO4J_URI')
-    user = os.getenv('NEO4J_USER')
-    password = os.getenv('NEO4J_PASSWORD')
-    db = os.getenv('NEO4J_DATABASE')
+    uri = os.getenv("NEO4J_URI")
+    user = os.getenv("NEO4J_USER")
+    password = os.getenv("NEO4J_PASSWORD")
+    db = os.getenv("NEO4J_DATABASE")
 
     if uri and user and password and db:
-        return {'uri': uri, 'user': user, 'password': password, 'database': db}, 
+        return {"uri": uri, "user": user, "password": password, "database": db}
 
     # Fallback to config file if environment variables are not set
     config = configparser.ConfigParser()
     config.read(config_file)
-    return config['neo4j']
+    return config["neo4j"]
+
 
 # Function to run a query and return a DataFrame
 def run_query(conn, query):
@@ -79,9 +81,10 @@ def get_h_indexes(conn):
 def main():
     config = load_config()
 
-
     # Connect to Neo4j
-    conn = Neo4jConnection(config['uri'], config['user'], config['password'], config['database'])
+    conn = Neo4jConnection(
+        config["uri"], config["user"], config["password"], config["database"]
+    )
 
     try:
         # Execute queries
@@ -91,10 +94,10 @@ def main():
         h_indexes_df = get_h_indexes(conn)
 
         # Save to CSV or process as required
-        top3_papers_df.to_csv('top3_papers_per_conference.csv', index=False)
-        community_df.to_csv('conference_community.csv', index=False)
-        impact_factors_df.to_csv('impact_factors.csv', index=False)
-        h_indexes_df.to_csv('h_indexes.csv', index=False)
+        top3_papers_df.to_csv("top3_papers_per_conference.csv", index=False)
+        community_df.to_csv("conference_community.csv", index=False)
+        impact_factors_df.to_csv("impact_factors.csv", index=False)
+        h_indexes_df.to_csv("h_indexes.csv", index=False)
 
         # You could also output to console
         print("Top 3 Papers Per Conference:")

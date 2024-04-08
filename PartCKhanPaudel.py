@@ -4,23 +4,23 @@ import configparser
 import os
 
 
-
-def load_config(config_file='config.ini'):
+def load_config(config_file="config.ini"):
     # Try to read from environment variables first
-    uri = os.getenv('NEO4J_URI')
-    user = os.getenv('NEO4J_USER')
-    password = os.getenv('NEO4J_PASSWORD')
-    database = os.getenv('NEO4J_DATABASE')
+    uri = os.getenv("NEO4J_URI")
+    user = os.getenv("NEO4J_USER")
+    password = os.getenv("NEO4J_PASSWORD")
+    database = os.getenv("NEO4J_DATABASE")
 
     print(uri, user, password, database)
 
     if uri and user and password:
-        return {'uri': uri, 'user': user, 'password': password, 'database': database}
+        return {"uri": uri, "user": user, "password": password, "database": database}
 
     # Fallback to config file if environment variables are not set
     config = configparser.ConfigParser()
     config.read(config_file)
-    return config['neo4j']
+    return config["neo4j"]
+
 
 # Function to run a query and return a DataFrame
 def run_query(conn, query):
@@ -95,7 +95,9 @@ def find_potential_reviewers_and_gurus(conn):
 def main():
     config = load_config()
 
-    conn = Neo4jConnection(config['uri'], config['user'], config['password'], config['database'])
+    conn = Neo4jConnection(
+        config["uri"], config["user"], config["password"], config["database"]
+    )
 
     try:
         # Execute the steps for the recommender system
@@ -106,9 +108,9 @@ def main():
         gurus_df = find_potential_reviewers_and_gurus(conn)
 
         # Save the output or process as required
-        tagged_journals_df.to_csv('tagged_journals.csv', index=False)
-        top_cited_papers_df.to_csv('top_cited_papers.csv', index=False)
-        gurus_df.to_csv('gurus.csv', index=False)
+        tagged_journals_df.to_csv("tagged_journals.csv", index=False)
+        top_cited_papers_df.to_csv("top_cited_papers.csv", index=False)
+        gurus_df.to_csv("gurus.csv", index=False)
 
         # You could also output to console
         print("Tagged Journals:")

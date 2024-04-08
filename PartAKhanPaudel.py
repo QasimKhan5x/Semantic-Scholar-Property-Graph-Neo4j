@@ -4,6 +4,7 @@ def load_authors(conn, csv_path):
     conn.query(query)
     print("Authors loaded successfully.")
 
+
 def load_years(conn, csv_path):
     query = f"""LOAD CSV WITH HEADERS FROM '{csv_path}' AS row
     CREATE (:Year {{
@@ -11,6 +12,7 @@ def load_years(conn, csv_path):
     }});"""
     conn.query(query)
     print("Years loaded successfully.")
+
 
 def load_papers(conn, csv_path):
     query = f"""LOAD CSV WITH HEADERS FROM '{csv_path}' AS row
@@ -26,12 +28,14 @@ def load_papers(conn, csv_path):
     conn.query(query)
     print("Papers loaded successfully.")
 
+
 def load_journals(conn, csv_path):
     query = f"""LOAD CSV WITH HEADERS FROM '{csv_path}' AS row
     CREATE (:Journal {{journalID: row.journalID, name: row.name, 
     issn: row.issn, editor: row.editor}});"""
     conn.query(query)
     print("Journals loaded successfully.")
+
 
 def load_volumes(conn, csv_path):
     query = f"""LOAD CSV WITH HEADERS FROM '{csv_path}' AS row
@@ -46,7 +50,8 @@ def load_volumes(conn, csv_path):
     WHERE v.journalID = j.journalID
     CREATE (v)-[:PRESENTED_IN]->(j);"""
     conn.query(query)
-    print("Volume PRESENTED_IN Journal relationships loaded successfully.")    
+    print("Volume PRESENTED_IN Journal relationships loaded successfully.")
+
 
 def load_paper_volume_relationships(conn, csv_path):
     query = f"""LOAD CSV WITH HEADERS FROM '{csv_path}' AS row
@@ -56,6 +61,7 @@ def load_paper_volume_relationships(conn, csv_path):
     conn.query(query)
     print("Paper PUBLISHED_IN Volume relationship loaded successfully.")
 
+
 def load_conferences(conn, csv_path):
     query = f"""LOAD CSV WITH HEADERS FROM '{csv_path}' AS row
     CREATE (:Conference {{conferenceID: row.conferenceID, 
@@ -64,12 +70,14 @@ def load_conferences(conn, csv_path):
     conn.query(query)
     print("Conferences loaded successfully.")
 
+
 def load_workshops(conn, csv_path):
     query = f"""LOAD CSV WITH HEADERS FROM '{csv_path}' AS row
     CREATE (:Workshop {{workshopID: row.workshopID, name: row.name, 
                    chair: row.chair}});"""
     conn.query(query)
     print("Workshops loaded successfully.")
+
 
 def load_proceedings(conn, csv_path):
     query = f"""LOAD CSV WITH HEADERS FROM '{csv_path}' AS row
@@ -95,6 +103,7 @@ def load_proceedings(conn, csv_path):
     conn.query(query)
     print("Proceedings PRESENTED_IN Workshop relationships loaded successfully.")
 
+
 def load_writes(conn, csv_path):
     query = f"""LOAD CSV WITH HEADERS FROM '{csv_path}' AS row
     MATCH (a:Author {{authorID: row.authorID}})
@@ -105,6 +114,7 @@ def load_writes(conn, csv_path):
     conn.query(query)
     print("Author WRITES Paper relationship loaded successfully.")
 
+
 def load_reviews(conn, csv_path):
     query = f"""LOAD CSV WITH HEADERS FROM '{csv_path}' AS row
     MATCH (reviewingAuthor:Author {{authorID: row.authorID}})
@@ -112,6 +122,7 @@ def load_reviews(conn, csv_path):
     MERGE (reviewingAuthor)-[:REVIEWS]->(reviewedPaper);"""
     conn.query(query)
     print("Author REVIEWS Paper relationship loaded successfully.")
+
 
 def load_cites(conn, csv_path):
     query = f"""LOAD CSV WITH HEADERS FROM '{csv_path}' AS row
@@ -121,6 +132,7 @@ def load_cites(conn, csv_path):
     conn.query(query)
     print("Paper CITES Paper relationship loaded successfully.")
 
+
 def load_paper_proceedings_relationships(conn, csv_path):
     query = f"""LOAD CSV WITH HEADERS FROM '{csv_path}' AS row
     MATCH (p:Paper {{paperID: row.paperID}})
@@ -129,6 +141,7 @@ def load_paper_proceedings_relationships(conn, csv_path):
     conn.query(query)
     print("Paper PUBLISHED_IN Proceedings relationships loaded successfully.")
 
+
 def load_keywords(conn, csv_path):
     query = f"""LOAD CSV WITH HEADERS FROM '{csv_path}' AS row
     CREATE (:Keyword {{
@@ -136,6 +149,7 @@ def load_keywords(conn, csv_path):
     }});"""
     conn.query(query)
     print("Keywords loaded successfully.")
+
 
 def load_paper_keywords_relationships(conn, csv_path):
     query = f"""LOAD CSV WITH HEADERS FROM '{csv_path}' AS row WITH row
@@ -147,6 +161,7 @@ def load_paper_keywords_relationships(conn, csv_path):
     conn.query(query)
     print("Paper-keyword relationships loaded successfully.")
 
+
 def update_review_details(conn, csv_path):
     query = f"""LOAD CSV WITH HEADERS FROM '{csv_path}' AS row
     MATCH (a:Author)-[r:REVIEWS]->(p:Paper)
@@ -154,6 +169,7 @@ def update_review_details(conn, csv_path):
     SET r.content = row.content, r.decision = (row.decision = "True");"""
     conn.query(query)
     print("Review details updated successfully.")
+
 
 def update_journal_reviewer_policy(conn, csv_path):
     query = f"""LOAD CSV WITH HEADERS FROM '{csv_path}' AS row
@@ -163,6 +179,7 @@ def update_journal_reviewer_policy(conn, csv_path):
     conn.query(query)
     print("Journal reviewer policy updated successfully.")
 
+
 def update_conference_reviewer_policy(conn, csv_path):
     query = f"""LOAD CSV WITH HEADERS FROM '{csv_path}' AS row
     MATCH (c:Conference)
@@ -170,6 +187,7 @@ def update_conference_reviewer_policy(conn, csv_path):
     SET c.reviewerPolicy = row.reviewerPolicy;"""
     conn.query(query)
     print("Conference reviewer policy updated successfully.")
+
 
 def update_workshop_reviewer_policy(conn, csv_path):
     query = f"""LOAD CSV WITH HEADERS FROM '{csv_path}' AS row
@@ -179,11 +197,13 @@ def update_workshop_reviewer_policy(conn, csv_path):
     conn.query(query)
     print("Workshop reviewer policy updated successfully.")
 
+
 def load_organizations(conn, csv_path):
     query = f"""LOAD CSV WITH HEADERS FROM '{csv_path}' AS row
     CREATE (:Organization {{orgID: row.orgID, name: row.name, type: row.type}});"""
     conn.query(query)
     print("Organizations loaded successfully.")
+
 
 def load_author_affiliations(conn, csv_path):
     query = f"""LOAD CSV WITH HEADERS FROM '{csv_path}' AS row
@@ -192,4 +212,3 @@ def load_author_affiliations(conn, csv_path):
     MERGE (a)-[:AFFILIATED_TO]->(o);"""
     conn.query(query)
     print("Author affiliations loaded successfully.")
-

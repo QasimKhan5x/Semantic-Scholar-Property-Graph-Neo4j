@@ -58,10 +58,8 @@ bash run_loader.sh --config config.ini
 
 ## Results
 
-Below are the results we obtained from running the pipeline:
+Below are the sample results we obtained from running the pipeline:
 
 ```markdown
 ![Results Image](path-to-your-results-image)
 ```
-
-Replace `path-to-your-results-image` with the actual path or URL to the image of your results.
