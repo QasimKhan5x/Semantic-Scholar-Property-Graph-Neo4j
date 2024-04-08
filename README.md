@@ -60,6 +60,8 @@ bash run_loader.sh --config config.ini
 
 Below are the sample results we obtained from running the pipeline:
 
-```markdown
-![Results Image](path-to-your-results-image)
-```
+![Part A Results](images/partA.png)
+![Part B Results](images/partB.png)
+![Part C Results](images/partC.png)
+![Part D Results 1](images/partD-1.png)
+![Part D Results 2](images/partD-2.png)
