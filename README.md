@@ -28,7 +28,7 @@ Download the dataset from the provided hyperlink. Ensure the downloaded dataset 
 
 ### Data Transformation
 
-Run the `etl.ipynb` Jupyter notebook to create necessary files from the dataset. Initially, `all_data.csv` will be used.
+Run the `notebooks/etl.ipynb` Jupyter notebook to create necessary files from the dataset. Initially, `all_data.csv` will be used.
 
 #### Skipping Keyword Creation
 
